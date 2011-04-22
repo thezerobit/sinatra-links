@@ -14,7 +14,8 @@ error do
 end
 
 helpers do
-  # add your helpers here
+  include Rack::Utils
+  alias_method :h, :escape_html
 end
 
 # root page
