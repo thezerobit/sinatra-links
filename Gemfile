@@ -9,6 +9,7 @@ gem 'dm-validations'
 gem 'dm-aggregates'
 gem 'dm-migrations'
 gem 'haml'
+gem 'bcrypt-ruby'
 
 group :test do
   gem 'rspec', :require => 'spec'

@@ -22,3 +22,15 @@ end
 get '/' do
   haml :root
 end
+
+get '/signup' do
+  fields = [
+    { :name => 'username', :title => 'Username', },
+    { :name => 'firstname', :title => 'First Name', },
+    { :name => 'lastname', :title => 'Last Name', },
+    { :name => 'email', :title => 'Email Address', },
+    { :name => 'password', :title => 'Password', :type => 'password', },
+  ]
+  haml :simpleform, :locals => { :fields => fields, :dest => '/signup',
+    :action => 'Sign Up!'}
+end

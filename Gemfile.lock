@@ -75,6 +75,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   data_mapper (>= 1.1)
   dm-aggregates
   dm-core

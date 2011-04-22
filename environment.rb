@@ -7,14 +7,15 @@ require 'dm-aggregates'
 require 'dm-migrations'
 require 'haml'
 require 'ostruct'
+require 'bcrypt'
 
 require 'sinatra' unless defined?(Sinatra)
 
 configure do
   SiteConfig = OpenStruct.new(
-                 :title => 'Your Application Name',
-                 :author => 'Your Name',
-                 :url_base => 'http://localhost:4567/'
+                 :title => 'Class Page',
+                 :author => 'Stephen A. Goss',
+                 :url_base => 'http://127.0.0.1:4567/'
                )
 
   # load models

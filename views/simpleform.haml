@@ -1,0 +1,10 @@
+%form{:method => 'POST', :action => dest}
+  - fields.each do |field|
+    %div
+      %label{:for => field[:name]} Enter #{field[:title]}:
+      %input{:type => field.fetch(:type, 'text'),
+        :id => field[:name],
+        :name => field[:name]}
+  %div
+    %input{:type => 'submit', :value => action}
+
