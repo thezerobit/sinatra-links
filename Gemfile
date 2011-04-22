@@ -1,7 +1,7 @@
 source :rubygems
-gem 'sinatra', '>= 1.0'
+gem 'sinatra', '>= 1.2'
 gem 'rake'
-gem 'data_mapper'
+gem 'data_mapper', '>= 1.1'
 gem 'dm-core'
 gem 'dm-sqlite-adapter'
 gem 'dm-timestamps'
