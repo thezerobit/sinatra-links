@@ -1,10 +1,13 @@
 %form{:method => 'POST', :action => dest}
-  - fields.each do |field|
-    %div
-      %label{:for => field[:name]} Enter #{field[:title]}:
-      %input{:type => field.fetch(:type, 'text'),
-        :id => field[:name],
-        :name => field[:name]}
+  - klass.properties.each do |prop|
+    - if true
+      %div= prop.get_class
+      %div
+        %label{:for => prop.name.to_s} Enter #{prop.human_name}:
+        %input{:type => prop.input_type,
+          :id => prop.name.to_s,
+          :name => prop.name.to_s}
+        - object.errors[prop.name].each do |errmsg|
+          %span.error&= errmsg
   %div
     %input{:type => 'submit', :value => action}
-

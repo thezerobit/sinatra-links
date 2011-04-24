@@ -50,3 +50,6 @@ a:hover {
 #logo a:hover {
   text-decoration: none;
 }
+span.error {
+  color: #FF0000;
+}
