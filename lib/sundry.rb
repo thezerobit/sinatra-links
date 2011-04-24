@@ -3,20 +3,35 @@ class DataMapper::Property
     @name.to_s.split("_").map{ |x| x.capitalize }.join ' '
   end
   def input_type
-    case @class
-      when DataMapper::Property::BCryptHash then 'password'
-      else 'text'
-    end
+    'text'
   end
   def form_field?
-    allowed = [
-      DataMapper::Property::String,
-      DataMapper::Property::Text,
-      DataMapper::Property::BCryptHash,
-    ]
-    allowed.include? @class
-  end
-  def get_class
-    @class.to_s
+    false
   end
 end
+
+string_classes = [
+  DataMapper::Property::String,
+  DataMapper::Property::Text,
+]
+password_classes = [
+  DataMapper::Property::BCryptHash,
+]
+string_classes.each do |k|
+  k.class_eval do 
+    def form_field?
+      true
+    end
+  end
+end
+password_classes.each do |k|
+  k.class_eval do 
+    def input_type
+      'password'
+    end
+    def form_field?
+      true
+    end
+  end
+end
+

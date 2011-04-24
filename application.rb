@@ -24,10 +24,7 @@ get '/' do
 end
 
 get '/signup' do
-  fields = User.form_fields
   haml :simpleform, :locals => {
-    :fields => fields,
-    :klass => User,
     :dest => '/signup',
     :action => 'Sign Up!',
     :object => User.new,
@@ -36,11 +33,9 @@ get '/signup' do
 end
 
 post '/signup' do
-  fields = User.form_fields
   input_hash = {}
-  fields.each do |field|
-    sym = field[:name].intern
-    input_hash[sym] = params[sym]
+  User.properties.select{|p| p.form_field?}.map{|p| p.name}.each do |n|
+    input_hash[n] = params[n]
   end
   new_user = User.create(input_hash)
   if new_user.saved?
@@ -48,7 +43,6 @@ post '/signup' do
   else
     input_hash[:password] = ''
     haml :simpleform, :locals => {
-      :fields => fields,
       :dest => '/signup',
       :action => 'Sign Up!',
       :object => new_user,

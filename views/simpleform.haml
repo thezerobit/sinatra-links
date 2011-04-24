@@ -1,12 +1,11 @@
 %form{:method => 'POST', :action => dest}
-  - klass.properties.each do |prop|
-    - if true
-      %div= prop.get_class
+  - object.class.properties.each do |prop|
+    - if prop.form_field?
       %div
-        %label{:for => prop.name.to_s} Enter #{prop.human_name}:
+        %label{:for => prop.field} Enter #{prop.human_name}:
         %input{:type => prop.input_type,
-          :id => prop.name.to_s,
-          :name => prop.name.to_s}
+          :id => prop.field,
+          :name => prop.field}
         - object.errors[prop.name].each do |errmsg|
           %span.error&= errmsg
   %div
