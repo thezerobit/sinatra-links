@@ -9,6 +9,11 @@
         #logo
           %h1
             %a{:href => '/'}= SiteConfig.title
+          %div
+            - if @user
+              %a{:href => '/logout'} Logout
+            - else
+              %a{:href => '/login'} Login
       #content= yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"

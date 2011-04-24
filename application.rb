@@ -3,6 +3,8 @@ require 'bundler/setup'
 require 'sinatra'
 require File.join(File.dirname(__FILE__), 'environment')
 
+enable :sessions
+
 configure do
   set :views, "#{File.dirname(__FILE__)}/views"
 end
@@ -16,6 +18,12 @@ end
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
+end
+
+#filters
+
+before do
+  @user = User.get(session[:user_id])
 end
 
 # root page
@@ -51,3 +59,23 @@ post '/signup' do
   end
 end
 
+get '/login' do
+  haml :login, :locals => { :message => '' }
+end
+
+post '/login' do
+  user = User.first :username => params[:username]
+  if user and user.password == params[:password]
+    @user = user
+    session.clear
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    haml :login, :locals => { :message => 'Invalid Login Details' }
+  end
+end
+
+get '/logout' do
+  session.clear
+  redirect '/'
+end
