@@ -13,7 +13,7 @@ require 'sinatra' unless defined?(Sinatra)
 
 configure do
   SiteConfig = OpenStruct.new(
-                 :title => 'Class Page',
+                 :title => 'Sinatra Class Page',
                  :author => 'Stephen A. Goss',
                  :url_base => 'http://127.0.0.1:4567/'
                )

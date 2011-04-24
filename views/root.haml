@@ -1,4 +1,10 @@
 %h2 Main Page
-%p Here is some text.
-%p Here is a <a href='/'>link</a>.
+%p Welcome to the class page.
+%p Here are some useful links (see all <a href="/links">here</a>):
+%ul
+  - links.each do |link|
+    %li
+      %a{:href => link.address}&= link.name
+      * shared by
+      &= link.user.username
 %p ttys!

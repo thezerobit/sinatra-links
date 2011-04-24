@@ -14,6 +14,10 @@
               %a{:href => '/logout'} Logout
             - else
               %a{:href => '/login'} Login
+              or
+              %a{:href => '/signup'} Signup
+          %div
+            %a{:href => '/links'} Links
       #content= yield
       #footer
         %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} #{SiteConfig.author} &mdash;"

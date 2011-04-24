@@ -28,10 +28,60 @@ end
 
 # root page
 get '/' do
-  haml :root
+  links = Link.first(10)
+  haml :root, :locals => { :links => links }
+end
+
+get '/links' do
+  links = Link.all
+  haml :links, :locals => { :links => links }
+end
+
+get '/add_link' do
+  redirect '/' if !@user
+  haml :simpleform, :locals => {
+    :dest => '/add_link',
+    :action => 'Add Link',
+    :object => Link.new,
+    :data => {:address => 'http://'},
+  }
+end
+
+post '/add_link' do
+  redirect '/' if !@user
+  input_hash = { 
+    :name => params[:name],
+    :address => params[:address],
+    :user => @user,
+  }
+  new_link = Link.create(input_hash)
+  if new_link.saved?
+    haml :notification, :locals => {:message => "Link created."}
+  else
+    haml :simpleform, :locals => {
+      :dest => '/add_link',
+      :action => 'Add Link',
+      :object => new_link,
+      :data => input_hash,
+    }
+  end
+end
+
+post '/vote_link' do
+  redirect '/' if !@user
+  link = Link.get(params[:link_id])
+  if link
+    linkvote = Linkvote.first_or_create(
+      {:user => @user, :link => link},
+      {:user => @user, :link => link})
+    link.votes = Linkvote.count(:link => link)
+    link.save
+  end
+  redirect params[:return_to]
 end
 
 get '/signup' do
+  redirect '/' if @user
   haml :simpleform, :locals => {
     :dest => '/signup',
     :action => 'Sign Up!',

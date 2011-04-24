@@ -2,12 +2,12 @@
   - object.class.properties.each do |prop|
     - if prop.form_field?
       %div
-        %label{:for => prop.field} Enter #{prop.human_name}:
+        %label{:for => prop.field} Enter #{h prop.human_name}#{' *' if prop.required?}:
         %input{:type => prop.input_type,
           :id => prop.field,
-          :name => prop.field}
+          :name => prop.field,
+          :value => data[prop.name]}
         - object.errors[prop.name].each do |errmsg|
           %span.error&= errmsg
   %div
     %input{:type => 'submit', :value => action}
-%div Note: This form is not currently encrypted, do not reuse an important password.

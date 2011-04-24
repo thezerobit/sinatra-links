@@ -1,0 +1,12 @@
+(#{link.votes}) 
+%a{:href => link.address}&= link.name
+* shared bye
+&= link.user.username
+- if user
+  - if Linkvote.first(:link => link, :user => user)
+    (voted)
+  - else
+    %form{:method => 'POST', :action => '/vote_link'}
+      %input{:type => 'hidden', :name => 'link_id', :value => link.id}
+      %input{:type => 'hidden', :name => 'return_to', :value => request.path}
+      %input{:type => 'submit', :value => 'Vote Up'}
