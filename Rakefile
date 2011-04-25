@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'rspec/core/rake_task'
+begin
+  require 'rspec/core/rake_task'
+rescue
+  puts 'rake_task missing'
+end
 
 task :default => :test
 task :test => :spec
