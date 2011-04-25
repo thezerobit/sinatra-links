@@ -1,3 +1,6 @@
+require 'dm-core'
+require 'dm-types/bcrypt_hash'
+
 class DataMapper::Property
   def human_name
     @name.to_s.split("_").map{ |x| x.capitalize }.join ' '
