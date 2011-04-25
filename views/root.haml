@@ -1,10 +1,7 @@
 %h2 Main Page
 %p Welcome to the class page.
-%p Here are some useful links (see all <a href="/links">here</a>):
+%p Here are some useful links (see the rest <a href="/links">here</a>):
 %ul
   - links.each do |link|
     %li
-      %a{:href => link.address}&= link.name
-      * shared by
-      &= link.user.username
-%p ttys!
+      != haml :link, :locals => {:link => link, :user => @user}, :layout => false
