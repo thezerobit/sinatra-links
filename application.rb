@@ -19,6 +19,7 @@ helpers do
   include Rack::Utils
   alias_method :h, :escape_html
   alias_method :u, :escape
+  alias_method :templ, :erb # switch :erb to :haml, to use haml templates
 end
 
 #filters
@@ -30,12 +31,12 @@ end
 # root page
 get '/' do
   links = Link.first 10, :order => [ :votes.desc ]
-  haml :root, :locals => { :links => links }
+  templ :root, :locals => { :links => links }
 end
 
 get '/signup' do
   redirect '/' if @user
-  haml :simpleform, :locals => {
+  templ :simpleform, :locals => {
     :dest => '/signup',
     :action => 'Sign Up!',
     :object => User.new,
@@ -50,10 +51,10 @@ post '/signup' do
   end
   new_user = User.create(input_hash)
   if new_user.saved?
-    haml :notification, :locals => {:message => "User #{new_user[:username]} created."}
+    templ :notification, :locals => {:message => "User #{new_user[:username]} created."}
   else
     input_hash[:password] = ''
-    haml :simpleform, :locals => {
+    templ :simpleform, :locals => {
       :dest => '/signup',
       :action => 'Sign Up!',
       :object => new_user,
@@ -63,7 +64,7 @@ post '/signup' do
 end
 
 get '/login' do
-  haml :login, :locals => { :message => '' }
+  templ :login, :locals => { :message => '' }
 end
 
 post '/login' do
@@ -74,7 +75,7 @@ post '/login' do
     session[:user_id] = @user.id
     redirect '/'
   else
-    haml :login, :locals => { :message => 'Invalid Login Details' }
+    templ :login, :locals => { :message => 'Invalid Login Details' }
   end
 end
 
@@ -85,12 +86,12 @@ end
 
 get '/links' do
   links = Link.all :order => [ :votes.desc ]
-  haml :links, :locals => { :links => links }
+  templ :links, :locals => { :links => links }
 end
 
 get '/add_link' do
   redirect '/' if !@user
-  haml :simpleform, :locals => {
+  templ :simpleform, :locals => {
     :dest => '/add_link',
     :action => 'Add Link',
     :object => Link.new,
@@ -107,9 +108,9 @@ post '/add_link' do
   }
   new_link = Link.create(input_hash)
   if new_link.saved?
-    haml :notification, :locals => {:message => "Link created."}
+    templ :notification, :locals => {:message => "Link created."}
   else
-    haml :simpleform, :locals => {
+    templ :simpleform, :locals => {
       :dest => '/add_link',
       :action => 'Add Link',
       :object => new_link,

@@ -1,0 +1,10 @@
+<h2>Main Page</h2>
+<p>Welcome to Sinatra Links.</p>
+<p>Here are some useful links (see the rest <a href="/links">here</a>):</p>
+<ul>
+  <% links.each do |link| %>
+    <li>
+      <%= erb :link, :locals => {:link => link, :user => @user}, :layout => false %>
+    </li>
+  <% end %>
+</ul>
