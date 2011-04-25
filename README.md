@@ -1,4 +1,4 @@
-= Sinatra Class App =
+= Sinatra Links =
 
 Simple application to illustrate Sinatra + DataMapper with sessions.
 
