@@ -1,0 +1,12 @@
+<% if @user %>
+  <h2>All Links (<a href="/add_link">add link</a>):</h2>
+<% else %>
+  <h2>All Links:</h2>
+<% end %>
+<ul>
+  <% links.each do |link| %>
+    <li>
+      <%= erb :link, :locals => {:link => link, :user => @user}, :layout => false %>
+    </li>
+  <% end %>
+</ul>

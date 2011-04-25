@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= h (@title || SiteConfig.title) %></title>
+    <link href="/main.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="logo">
+          <h1>
+            <a href="/"><%= h SiteConfig.title %></a>
+          </h1>
+          <div>
+            <% if @user %>
+              <a href="/logout">Logout</a>
+            <% else %>
+              <a href="/login">Login</a>
+              or
+              <a href="/signup">Signup</a>
+            <% end %>
+          </div>
+          <div>
+            <a href="/links">Links</a>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        <p id="legal"><%= "&mdash; &copy; #{Time.now.strftime('%Y')} #{h SiteConfig.author} &mdash;" %></p>
+      </div>
+    </div>
+  </body>
+</html>

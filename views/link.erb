@@ -1,0 +1,12 @@
+(<%= link.votes %>)
+<a href="<%=h link.address %>"><%= h link.name %></a>
+* shared by
+<%= h link.user.username %>
+<% if user %>
+  <% if Linkvote.first(:link => link, :user => user) %>
+    +1
+    <a class="vote" href="/unvote_link?return_to=<%=u request.path %>&link_id=<%=u link.id %>">remove</a>
+  <% else %>
+    <a class="vote" href="/vote_link?return_to=<%=u request.path %>&link_id=<%=u link.id %>">Vote</a>
+  <% end %>
+<% end %>
