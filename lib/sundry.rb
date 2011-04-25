@@ -1,5 +1,5 @@
-require 'datamapper'
 require 'dm-core'
+require 'dm-types'
 require 'dm-types/bcrypt_hash'
 
 class DataMapper::Property
