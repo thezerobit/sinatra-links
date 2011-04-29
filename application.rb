@@ -86,35 +86,80 @@ end
 
 get '/links' do
   links = Link.all :order => [ :votes.desc ]
-  templ :links, :locals => { :links => links }
+  templ :links, :locals => { :links => links, :tag => 'All'}
+end
+
+get '/links/:tag_name' do
+  links = Link.all :order => [ :votes.desc ]
+  links = links.map{ |x| x }.select{ |l| l.linktag.map{ |t| t.name }.include? params[:tag_name] }
+  templ :links, :locals => { :links => links , :tag => "\"#{params[:tag_name]}\""}
 end
 
 get '/add_link' do
   redirect '/' if !@user
-  templ :simpleform, :locals => {
+  templ :linkform, :locals => {
     :dest => '/add_link',
     :action => 'Add Link',
-    :object => Link.new,
-    :data => {:address => 'http://'},
+    :object => Link.new(:address => 'http://'),
+    :data => {:tags => ''},
   }
 end
 
 post '/add_link' do
   redirect '/' if !@user
-  input_hash = { 
+  input_hash = {
     :name => params[:name],
     :address => params[:address],
     :user => @user,
   }
-  new_link = Link.create(input_hash)
-  if new_link.saved?
+  tag_text = params[:tags]
+  link = Link.create(input_hash)
+  if link.saved?
+    link.save_tags tag_text
     templ :notification, :locals => {:message => "Link created."}
   else
     templ :simpleform, :locals => {
       :dest => '/add_link',
       :action => 'Add Link',
-      :object => new_link,
-      :data => input_hash,
+      :object => link,
+      :data => {:tags => tag_text},
+    }
+  end
+end
+
+get '/edit_link/:link_id' do
+  redirect '/' if !@user
+  link = Link.get(params[:link_id])
+  redirect '/links' if !link
+  tag_text = link.linktag.map{|t| t.name}.join(' ')
+  templ :linkform, :locals => {
+    :dest => "/edit_link/#{link.id}",
+    :action => 'Update Link',
+    :object => link,
+    :data => {:tags => tag_text},
+  }
+end
+
+
+post '/edit_link/:link_id' do
+  redirect '/' if !@user
+  input_hash = {
+    :name => params[:name],
+    :address => params[:address],
+  }
+  link = Link.get(params[:id])
+  redirect '/' if !link
+  saved = link.update(input_hash)
+  tag_text = params[:tags]
+  if saved
+    link.save_tags tag_text
+    templ :notification, :locals => {:message => "Link updated."}
+  else
+    templ :simpleform, :locals => {
+      :dest => "/edit_link/#{link.id}",
+      :action => 'Update Link',
+      :object => link,
+      :data => {:tags => tag_text},
     }
   end
 end

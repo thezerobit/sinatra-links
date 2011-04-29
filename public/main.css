@@ -53,3 +53,11 @@ a:hover {
 span.error {
   color: #FF0000;
 }
+a.tag {
+  background-color: #AAFFAA;
+  font-weight: lighter;
+  color: #000000;
+  text-decoration: none;
+  font-size: 0.9em;
+  border: 1px solid #555555;
+}
