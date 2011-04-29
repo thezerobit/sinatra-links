@@ -1,8 +1,4 @@
-<% if @user %>
-  <h2>All Links (<a href="/add_link">add link</a>):</h2>
-<% else %>
-  <h2>All Links:</h2>
-<% end %>
+<h2><%=h tag%> Links <% if @user %>(<a href="/add_link">add link</a>)<% end %>:</h2>
 <ul>
   <% links.each do |link| %>
     <li>

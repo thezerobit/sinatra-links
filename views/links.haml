@@ -1,8 +1,0 @@
-- if @user
-  %h2 All Links (<a href="/add_link">add link</a>):
-- else
-  %h2 All Links:
-%ul
-  - links.each do |link|
-    %li
-      != haml :link, :locals => {:link => link, :user => @user}, :layout => false

@@ -1,5 +1,11 @@
 (<%= link.votes %>)
 <a href="<%=h link.address %>"><%= h link.name %></a>
+<% link.linktag.each do |tag| %>
+  <a class="tag" href="/links/<%=h tag.name%>"><%=h tag.name%></a>
+<% end %>
+<% if @user %>
+  (<a href="/edit_link/<%=h link.id%>">edit</a>)
+<% end %>
 * shared by
 <%= h link.user.username %>
 <% if user %>
