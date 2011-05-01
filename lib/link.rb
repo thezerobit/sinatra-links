@@ -15,7 +15,7 @@ class Link
   has n, :linktag
 
   def save_tags tagtext
-    tag_names = tagtext.split(/[, ]/).map{ |t| t.downcase }
+    tag_names = tagtext.split(/[, ]+/).map{ |t| t.downcase }
     tag_names.each do |tagtext|
       Linktag.first_or_create(
         {:name => tagtext, :link => self},
