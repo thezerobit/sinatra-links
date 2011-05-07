@@ -118,7 +118,7 @@ post '/add_link' do
     link.save_tags tag_text
     templ :notification, :locals => {:message => "Link created."}
   else
-    templ :simpleform, :locals => {
+    templ :linkform, :locals => {
       :dest => '/add_link',
       :action => 'Add Link',
       :object => link,
