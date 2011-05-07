@@ -1,0 +1,33 @@
+<form method="POST" action="<%= dest %>">
+  <input type="hidden" id="id" name="id" value="<%= h object.id %>"/>
+  <div>
+    <label for="name">Enter Name *:</label>
+    <input type="text" id="name" name="name"
+      value="<%= h object.name %>" />
+    <% object.errors[:name].each do |errmsg| %>
+      <span class="error"><%= h errmsg %></span>
+    <% end %>
+  </div>
+  <div>
+    <label for="public">Enter Public *:</label>
+    <input type="checkbox" id="public" name="public" 
+      <%= 'checked="checked"' if object.public %> />
+  </div>
+  <div>
+    <label for="content">Paste Code Here *:</label>
+    <textarea id="content" name="content" rows="10" cols="60"><%= h object.content %></textarea>
+    <% object.errors[:address].each do |errmsg| %>
+      <span class="error"><%= h errmsg %></span>
+    <% end %>
+  </div>
+  <div>
+    <label for="tags">Enter Tags:</label>
+    <input type="text" id="tags" name="tags"
+      value="<%= h data[:tags] %>" />
+  </div>
+  <div>
+    <input type="submit" value="<%= h action %>" />
+  </div>
+</form>
+
+

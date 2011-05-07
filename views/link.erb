@@ -3,12 +3,12 @@
 <% link.linktag.each do |tag| %>
   <a class="tag" href="/links/<%=h tag.name%>"><%=h tag.name%></a>
 <% end %>
-<% if @user %>
+<% if user == link.user %>
   (<a href="/edit_link/<%=h link.id%>">edit</a>)
 <% end %>
 * shared by
 <%= h link.user.username %>
-<% if user %>
+<% if user and link.user != user %>
   <% if Linkvote.first(:link => link, :user => user) %>
     +1
     <a class="vote" href="/unvote_link?return_to=<%=u request.path %>&link_id=<%=u link.id %>">remove</a>

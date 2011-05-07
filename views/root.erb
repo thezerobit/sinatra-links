@@ -8,3 +8,12 @@
     </li>
   <% end %>
 </ul>
+
+<p>Here are some code snippets (see the rest <a href="/snippets">here</a>):</p>
+<ul>
+  <% snippets.each do |snippet| %>
+    <li>
+      <%= erb :snippet, :locals => {:snippet => snippet, :user => @user}, :layout => false %>
+    </li>
+  <% end %>
+</ul>
