@@ -1,0 +1,9 @@
+<h2><%=h tag%> Snippets <% if @user %>(<a href="/add_snippet">add snippet</a>)<% end %>:</h2>
+<ul>
+  <% snippets.each do |snippet| %>
+    <li>
+      <%= erb :snippet, :locals => {:snippet => snippet, :user => @user}, :layout => false %>
+    </li>
+  <% end %>
+</ul>
+

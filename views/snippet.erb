@@ -1,0 +1,19 @@
+(<%= snippet.votes %>)
+<a href="/snippet/<%=h snippet.url %>"><%= h snippet.name %></a>
+<% snippet.snippettag.each do |tag| %>
+  <a class="tag" href="/snippets/<%=h tag.name%>"><%=h tag.name%></a>
+<% end %>
+<% if user == snippet.user %>
+  (<a href="/edit_snippet/<%=h snippet.id%>">edit</a>)
+<% end %>
+* shared by
+<%= h snippet.user.username %>
+<% if user and user != snippet.user %>
+  <% if Snippetvote.first(:snippet => snippet, :user => user) %>
+    +1
+    <a class="vote" href="/unvote_snippet?return_to=<%=u request.path %>&snippet_id=<%=u snippet.id %>">remove</a>
+  <% else %>
+    <a class="vote" href="/vote_snippet?return_to=<%=u request.path %>&snippet_id=<%=u snippet.id %>">Vote</a>
+  <% end %>
+<% end %>
+

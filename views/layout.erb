@@ -2,7 +2,10 @@
 <html>
   <head>
     <title><%= h (@title || SiteConfig.title) %></title>
-    <link href="/main.css" rel="stylesheet" type="text/css"></link>
+    <link href="/main.css" rel="stylesheet" type="text/css" />
+    <link href="/prettify/prettify.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
   </head>
   <body>
     <div id="container">
@@ -21,7 +24,11 @@
             <% end %>
           </div>
           <div>
-            <a href="/links">All Links</a>
+            <a href="/links">All Links</a> 
+            &sect; <a href="/snippets">Public Snippets (<%= Snippet.count(:public => true) %>)</a>
+            <% if @user %>
+            &sect; <a href="/my_snippets">My Snippets (<%= Snippet.count(:user => @user) %>)</a>
+            <% end %>
           </div>
         </div>
       </div>
