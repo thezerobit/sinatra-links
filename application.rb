@@ -3,6 +3,8 @@ require 'bundler/setup'
 require 'sinatra'
 require File.join(File.dirname(__FILE__), 'environment')
 
+set :session_secret, ENV["SESSION_KEY"] || 'too secret'
+
 enable :sessions
 
 configure do
@@ -295,7 +297,7 @@ end
 get '/vote_snippet' do
   redirect '/' if !@user
   snippet = Snippet.get(params[:snippet_id])
-  if snippet and snippet.user != @user
+  if snippet and snippet.user != @user and snippet.public
     snippetvote = Snippetvote.first_or_create(
       {:user => @user, :snippet => snippet},
       {:user => @user, :snippet => snippet})
@@ -308,7 +310,7 @@ end
 get '/unvote_snippet' do
   redirect '/' if !@user
   snippet = Snippet.get(params[:snippet_id])
-  if snippet and snippet.user != @user
+  if snippet and snippet.user != @user and snippet.public
     snippetvote = Snippetvote.first({:user => @user, :snippet => snippet})
     snippetvote.destroy if snippetvote
     snippet.votes = Snippetvote.count(:snippet => snippet)
