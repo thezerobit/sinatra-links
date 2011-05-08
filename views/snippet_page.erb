@@ -1,4 +1,15 @@
 <h2>Snippet : "<%=h snippet.name %>" shared by <%=h snippet.user.username %></h2>
+<p>
+  <% if snippet.public %>Votes: <%= snippet.votes %>.<% else %>This snippet is not publicly listed.<% end %>
+  <% if snippet.snippettag.length > 0 %>
+    Tags: 
+    <% snippet.snippettag.each do |tag| %>
+      <a class="tag" href="/snippets/<%=h tag.name%>"><%=h tag.name%></a>
+    <% end %>
+    .
+  <% end %>
+</p>
+  <% if snippet.user == @user %><p><a href="/edit_snippet/<%= snippet.id %>">Edit.</a></p><% end %>
 <pre class="prettyprint linenums"><%=h snippet.content %></pre>
 <script type="text/javascript">$(function() { prettyPrint(); });</script>
 

@@ -1,4 +1,4 @@
-(<%= snippet.votes %>)
+(<%= if snippet.public then snippet.votes else 'private' end %>)
 <a href="/snippet/<%=h snippet.url %>"><%= h snippet.name %></a>
 <% snippet.snippettag.each do |tag| %>
   <a class="tag" href="/snippets/<%=h tag.name%>"><%=h tag.name%></a>
@@ -8,7 +8,7 @@
 <% end %>
 * shared by
 <%= h snippet.user.username %>
-<% if user and user != snippet.user %>
+<% if user and user != snippet.user and snippet.public %>
   <% if Snippetvote.first(:snippet => snippet, :user => user) %>
     +1
     <a class="vote" href="/unvote_snippet?return_to=<%=u request.path %>&snippet_id=<%=u snippet.id %>">remove</a>
