@@ -1,8 +1,11 @@
 TODO LIST:
 
-* votes/private and edit link on snippet details page
 * longer-lasting, database-backed sessions
 * soft-delete of links and snippets
 * paged lists
 * history of links and snippets, (historical snapshots?)
   * would allow for anyone to edit?
+
+Done:
+
+* votes/private and edit link on snippet details page

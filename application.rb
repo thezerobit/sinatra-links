@@ -3,6 +3,8 @@ require 'bundler/setup'
 require 'sinatra'
 require File.join(File.dirname(__FILE__), 'environment')
 
+set :session_secret, ENV["SESSION_KEY"] || 'too secret'
+
 enable :sessions
 
 configure do
